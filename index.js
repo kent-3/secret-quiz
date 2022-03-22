@@ -3,27 +3,41 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
 import gradient from "gradient-string";
-import chalkAnimation from "chalk-animation";
+// import chalkAnimation from "chalk-animation";
 import figlet from "figlet";
 import { createSpinner } from "nanospinner";
+// import terminalLink from 'terminal-link';
 
 let playerName;
 
-const sleep = (ms = 200) => new Promise((r) => setTimeout(r,ms));
+const sleep = (ms = 2000) => new Promise((r) => setTimeout(r,ms));
 
 async function welcome() {
-    const title = chalkAnimation.glitch(
-        'Who Wants To Be A SCRT Millionaire?'
-    );
+
+    console.clear();
+    const title = 'Who Wants To Be\nA SCRT Millionaire?';
+
+    figlet.text(title, {
+        font: 'Slant',
+
+    }, (err, data) => {
+        console.log(gradient.mind.multiline(data))
+    });
+
+    // const title = chalkAnimation.glitch(
+    //     'Who Wants To Be A SCRT Millionaire?'
+    // );
 
     await sleep();
-    title.stop();
+    // title.stop();
+
+    // const link = terminalLink('My Website', 'https://github.com/kent-3');
 
     console.log(`
-        ${chalk.bgBlue('HOW TO PLAY')}
-        I am a process on your computer.
-        If you get any questions wrong I will be ${chalk.bgRed('killed')}
-        So get all of the questions right...
+        ${chalk.bgBlueBright('HOW TO PLAY')}
+        ${chalk.blueBright('Select the correct answers using the arrow keys.')}
+        ${chalk.blueBright('If you get any question wrong, you will have to start over.')}
+        ${chalk.blueBright('So get all of the questions right...')}
     `)
 }
 
@@ -61,6 +75,9 @@ await question15()
 await question16()
 await question17()
 await question18()
+await question19()
+await question20()
+await sleep()
 await winner()
 
 async function question1() {
@@ -273,16 +290,105 @@ async function question14() {
     return handleAnswer(answers.question_14 == 'Privacy Preserving Smart Contracts');
 }
 
+async function question15() {
+    const answers = await inquirer.prompt({
+        name: 'question_15',
+        type: 'list',
+        message: `What is the Secret Network consensus protocol?\n`,
+        choices: [
+            'Proof of Work(PoW)',
+            'Proof of Attendance(PoA)',
+            'Proof of Authority(PoA)',
+            'Delegated Proof of Stake(dPoS)',
+        ]
+    });
+    return handleAnswer(answers.question_15 == 'Delegated Proof of Stake(dPoS)');
+}
 
+async function question16() {
+    const answers = await inquirer.prompt({
+        name: 'question_16',
+        type: 'list',
+        message: `What makes Secret NFTs unique?\n`,
+        choices: [
+            'private ownership',
+            'private metadata',
+            'access control',
+            'all of the above',
+        ]
+    });
+    return handleAnswer(answers.question_16 == 'all of the above');
+}
+
+async function question17() {
+    const answers = await inquirer.prompt({
+        name: 'question_17',
+        type: 'list',
+        message: `Which ecosystem is Secret Network part of?\n`,
+        choices: [
+            'Ethereum',
+            'Cosmos',
+            'Monero',
+            'Tendermint',
+        ]
+    });
+    return handleAnswer(answers.question_17 == 'Cosmos');
+}
+
+async function question18() {
+    const answers = await inquirer.prompt({
+        name: 'question_18',
+        type: 'list',
+        message: `Why do people delegate their SCRT?\n`,
+        choices: [
+            'to earn more than network inflation',
+            'to be able to vote on governance proposals',
+            'to support validators that contribute to the network',
+            'to contribute to the network decentralization',
+            'all of the above'
+        ]
+    });
+    return handleAnswer(answers.question_18 == 'all of the above');
+}
+
+async function question19() {
+    const answers = await inquirer.prompt({
+        name: 'question_19',
+        type: 'list',
+        message: `What is the maximum supply of SCRT?\n`,
+        choices: [
+            '1,000,000,000 SCRT',
+            '21,000,000 SCRT',
+            '300,000,000 SCRT',
+            'There is no maximum supply',
+        ]
+    });
+    return handleAnswer(answers.question_19 == 'There is no maximum supply');
+}
+
+async function question20() {
+    const answers = await inquirer.prompt({
+        name: 'question_20',
+        type: 'list',
+        message: `Why is inflation needed in Secret Network?\n`,
+        choices: [
+            'to generate cash flow',
+            'to distribute wealth more equally',
+            'to reward delegators who contribute to securing the network',
+            'all of the above',
+        ]
+    });
+    return handleAnswer(answers.question_20 == 'to reward delegators who contribute to securing the network');
+}
 
 async function handleAnswer(isCorrect) {
     const spinner = createSpinner('Checking answer...').start();
-    const responses = [`That's a legit answer.`,`Woo-hoo!`,`Ooh wee.`,`In the pipe, 5x5.`,`Keep going!`];
+    const responses = [`That's a legit answer.`,'Woo-hoo!','Ooh wee!','Awesome!','Keep going!','Great Job!'];
     
     await sleep();
 
     if (isCorrect) {
-        spinner.success({ text: `Nice work ${playerName}. ${responses[Math.floor(Math.random() * responses.length)]}` });
+        spinner.success({ text: `Nice work, ${playerName}. ${responses[Math.floor(Math.random() * responses.length)]}` });
     } else {
         spinner.error({ text: `${chalk.bgRed(`Game Over`)}, you lose ${playerName}!`});
         process.exit(1);
@@ -297,6 +403,6 @@ function winner() {
         font: 'Slant',
 
     }, (err, data) => {
-        console.log(gradient.pastel.multiline(data))
+        console.log(gradient.mind.multiline(data))
     });
 }
