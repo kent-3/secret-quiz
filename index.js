@@ -3,10 +3,8 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
 import gradient from "gradient-string";
-// import chalkAnimation from "chalk-animation";
 import figlet from "figlet";
 import { createSpinner } from "nanospinner";
-// import terminalLink from 'terminal-link';
 
 let playerName;
 
@@ -24,14 +22,7 @@ async function welcome() {
         console.log(gradient.mind.multiline(data))
     });
 
-    // const title = chalkAnimation.glitch(
-    //     'Who Wants To Be A SCRT Millionaire?'
-    // );
-
     await sleep();
-    // title.stop();
-
-    // const link = terminalLink('My Website', 'https://github.com/kent-3');
 
     console.log(`
         ${chalk.bgBlueBright('HOW TO PLAY')}
