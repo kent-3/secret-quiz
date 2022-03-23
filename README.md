@@ -1,5 +1,7 @@
 # Secret Network Beginner Exam
 
+![screenshot](Screenshot.png)
+
 ## Take the Exam
 
 `node .`
