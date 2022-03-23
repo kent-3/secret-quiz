@@ -188,7 +188,7 @@ async function question8() {
             'Anons',
         ]
     });
-    return handleAnswer(answers.question_8 == 'Secret Agents');
+    return handleAnswer(answers.question_8 == 'Secret Agents' || 'Anons');
 }
 
 async function question9() {
